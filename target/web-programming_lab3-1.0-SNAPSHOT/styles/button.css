@@ -1,0 +1,33 @@
+.invalid {
+    background: red;
+}
+
+.xError {
+    color: red
+}
+
+.btn {
+    background-color: #B0C4DE;
+    margin-top: 150px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    width: 250px;
+    height: 40px;
+    border-radius: 4px;
+    text-align: center;
+    letter-spacing: 2px;
+    position: center;
+}
+
+#xError {
+    color: red;
+    font-size: 90%;
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+
+
+
+
+

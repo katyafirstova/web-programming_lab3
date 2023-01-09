@@ -2,11 +2,76 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-
+      xmlns:f="http://java.sun.com/jsf/core">
 
 
 <h:body>
+    <h:panelGrid class="wrapper">
+        <h:form>
+
+            <h:outputLabel for="x-coordinate">X:</h:outputLabel><br/>
+            <h:selectOneMenu id="x-coordinate">
+                <f:selectItem itemValue="-3"/>
+                <f:selectItem itemValue="-2"/>
+                <f:selectItem itemValue="-1"/>
+                <f:selectItem itemValue="0"/>
+                <f:selectItem itemValue="1"/>
+                <f:selectItem itemValue="2"/>
+                <f:selectItem itemValue="3"/>
+                <f:selectItem itemValue="4"/>
+                <f:selectItem itemValue="5"/>
+
+                <f:validator validatorId="xValidator"/>
+            </h:selectOneMenu>
+
+            <h:outputLabel for="y-coordinate">Y:</h:outputLabel><br/>
+            <h:inputText id="y-coordinate" maxlength="6" required="true" label="Введите значение в диапазоне (-3;5)">
+                <f:validator validatorId="yValidator"/>
+            </h:inputText>
+
+            <h:outputLabel for="r-coordinate">R:</h:outputLabel><br/>
+
+            <h:inputHidden id="r-coordinate">
+                <f:validator validatorId="rValidator"/>
+            </h:inputHidden>
+            <h:commandLink class="r-coordinate-value" value="1" onclick="handleClickLink(-5)"
+                           style="margin-right:20px;"/>
+            <h:commandLink class="r-coordinate-value" value="2" onclick="handleClickLink(-4)"
+                           style="margin-right:20px;"/>
+            <h:commandLink class="r-coordinate-value" value="3" onclick="handleClickLink(-3)"
+                           style="margin-right:20px;"/>
+            <h:commandLink class="r-coordinate-value" value="4" onclick="handleClickLink(-2)"
+                           style="margin-right:20px;"/>
+            <h:commandLink class="r-coordinate-value" value="5" onclick="handleClickLink(-1)"
+                           style="margin-right:20px;"/>
+
+        </h:form>
+    </h:panelGrid>
+
+    <h:dataTable id="result-table">
+
+        <f:facet name="header">Список точек</f:facet>
+
+        <h:column headerText="x">
+            <h:outputText value="#{point.XCoordinate}"/>
+        </h:column>
+
+        <h:column headerText="y">
+            <h:outputText value="#{point.YCoordinate}"/>
+        </h:column>
+
+        <h:column headerText="r">
+            <h:outputText value="#{point.radius}"/>
+        </h:column>
+
+        <h:column headerText="hit">
+            <h:outputText value="#{point.inside}">
+                <f:converter converterId="booleanConverter"/>
+            </h:outputText>
+        </h:column>
+
+
+    </h:dataTable>
 
 </h:body>
 </html>
