@@ -6,7 +6,6 @@ import java.util.List;
 
 public class HitChecker {
 
-
     public String getResult(int x, double y, int r) {
         String result = null;
         if (checkIfValid(x, y, r)) {
@@ -65,7 +64,6 @@ public class HitChecker {
     private boolean checkRectangle(int xVal, double yVal, int rVal) {
         return (xVal <= 0 && yVal >= 0 && rVal <= 0 && xVal <= rVal / 2);
     }
-
 
 }
 
