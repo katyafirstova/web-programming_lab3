@@ -10,29 +10,30 @@
         <h:form>
 
             <h:outputLabel for="x-coordinate">X:</h:outputLabel><br/>
-            <h:selectOneMenu id="x-coordinate">
-                <f:selectItem itemValue="-3"/>
-                <f:selectItem itemValue="-2"/>
-                <f:selectItem itemValue="-1"/>
-                <f:selectItem itemValue="0"/>
-                <f:selectItem itemValue="1"/>
-                <f:selectItem itemValue="2"/>
-                <f:selectItem itemValue="3"/>
-                <f:selectItem itemValue="4"/>
-                <f:selectItem itemValue="5"/>
 
+            <h:selectOneMenu id="x-coordinate" value="#{HitTable.x}" converter="javax.faces.Integer"
+                             converterMessage="Выберите значение">
                 <f:validator validatorId="xValidator"/>
-            </h:selectOneMenu>
 
+                <f:attribute name="pictureClick" value="#{pictureClick}"/>
+            </h:selectOneMenu>
+            <h:message id="x-error" for="x-coordinate" styleClass="error_message"/>
+
+                        <f:attribute name="pictureClick" value="#{pictureClick}"/>
             <h:outputLabel for="y-coordinate">Y:</h:outputLabel><br/>
-            <h:inputText id="y-coordinate" maxlength="6" required="true" label="Введите значение в диапазоне (-3;5)">
+            <h:inputText id="y-coordinate" maxlength="6" required="true"
+                         requiredMessage="Введите кординату Y" value="#{HitTable.y}"
+                         validatorMessage="Число должно быть от -5 до 3"
+                         converterMessage="Введите корректное число"
+                         converter="javax.faces.Double">>
                 <f:validator validatorId="yValidator"/>
+                <f:attribute name="pictureClick" value="#{pictureClick}"/>
             </h:inputText>
+            <h:message id="y-error" for="y-coordinate" styleClass="error_message"/>
 
             <h:outputLabel for="r-coordinate">R:</h:outputLabel><br/>
 
             <h:inputHidden id="r-coordinate">
-                <f:validator validatorId="rValidator"/>
             </h:inputHidden>
             <h:commandLink class="r-coordinate-value" value="1" onclick="handleClickLink(-5)"
                            style="margin-right:20px;"/>

@@ -1,10 +1,16 @@
-package controller;
+package utils;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class HitChecker {
+@FacesValidator("hitChecker")
+public class HitChecker implements Validator {
 
     public String getResult(int x, double y, int r) {
         String result = null;
@@ -65,6 +71,10 @@ public class HitChecker {
         return (xVal <= 0 && yVal >= 0 && rVal <= 0 && xVal <= rVal / 2);
     }
 
+    @Override
+    public void validate(FacesContext facesContext, UIComponent uiComponent, Object o) throws ValidatorException {
+
+    }
 }
 
 
