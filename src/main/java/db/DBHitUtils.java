@@ -1,34 +1,68 @@
 package db;
 
+import interfaces.HitController;
+import model.HitTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DBHitUtils extends DBConnection {
+public class DBHitUtils extends DBConnection{
 
     static final Logger LOG = LoggerFactory.getLogger(DBHitUtils.class);
 
-  //  public boolean insertHits() throws SQLException {
+    Connection connection;
 
-    //    Connection connection = getDBConnection();
-      //  Statement statement = connection.createStatement();
-   //     try {
-         //   statement.execute("insert into result_table (id, x, y, r, result, current_time_, execution_time) " + "values (" +
-         //           "'" + table.getId() + "', " +
-           //         "'" + (table.getX()) + "', " +
-          //          "'" + (table.getY()) + "', " +
-         //           "'" + (table.getR()) + "', " +
-          //          "'" + (table.getResult()) + "'," +
-             ///       "timestamp '" + Timestamp.valueOf(table.getCurrentTime()) + "', " +
-             //       "'" + (table.getExecutionTime()) + "')");
-          //  return true;
-        //} catch (SQLException e) {
-           // LOG.debug(e.getMessage());
-           // return false;
-        //}
-    //}
+    public void insertHit(HitTable hit) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO result_table values (?, ?, ?, ?, ?, ?)");
+        ps.setInt(1, hit.getX());
+        ps.setDouble(2, hit.getY());
+        ps.setInt(3, hit.getR());
+        ps.setString(4, hit.getResult());
+        ps.setDate(5, Date.valueOf(hit.getCurrentTime().toLocalDate()));
+        ps.setDouble(6, hit.getExecutionTime());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+
+    public List<HitTable> getHits() throws SQLException {
+        List<HitTable> hits = new ArrayList<>();
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery("select * from result_table");
+        while (rs.next()) {
+            HitTable hitTable = getHitData(rs);
+            hits.add(hitTable);
+        }
+        st.close();
+        rs.close();
+        return hits;
+    }
+
+    private HitTable getHitData(ResultSet rs) throws SQLException {
+        HitTable hits = new HitTable();
+        hits.setX(rs.getInt("x"));
+        hits.setY(rs.getDouble("y"));
+        hits.setR(rs.getInt("r"));
+        hits.setResult(rs.getString("result"));
+        hits.setCurrentTime(rs.getDate("currentTime").toLocalDate().atStartOfDay());
+        hits.setExecutionTime(rs.getDouble("executionTime"));
+        return hits;
+    }
+
+
+    public void clear() {
+        try (Statement st = connection.createStatement()) {
+            st.executeUpdate("delete from result_table");
+            st.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

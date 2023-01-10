@@ -45,34 +45,48 @@
                            style="margin-right:20px;"/>
             <h:commandLink class="r-coordinate-value" value="5" onclick="handleClickLink(-1)"
                            style="margin-right:20px;"/>
-
+            <h:commandButton id="checkBtn" onclick="setClickOnBtn()" value="Submit"> </h:commandButton>
         </h:form>
     </h:panelGrid>
 
-    <h:dataTable id="result-table">
+    <div id="results-table-area">
+        <h:dataTable id="table-with-data" value="#{HitDAO.hits}" var="hit">
 
-        <f:facet name="header">Список точек</f:facet>
+            <h:column>
+                <f:facet name="header">x</f:facet>
+                #{hit.x}
+            </h:column>
 
-        <h:column headerText="x">
-            <h:outputText value="#{point.XCoordinate}"/>
-        </h:column>
+            <h:column>
+                <f:facet name="header">y</f:facet>
+                #{hit.y}
+            </h:column>
 
-        <h:column headerText="y">
-            <h:outputText value="#{point.YCoordinate}"/>
-        </h:column>
+            <h:column>
+                <f:facet name="header">r</f:facet>
+                #{hit.r}
+            </h:column>
 
-        <h:column headerText="r">
-            <h:outputText value="#{point.radius}"/>
-        </h:column>
+            <h:column>
+                <f:facet name="header">result</f:facet>
+                #{hit.date}
+            </h:column>
 
-        <h:column headerText="hit">
-            <h:outputText value="#{point.inside}">
-                <f:converter converterId="booleanConverter"/>
-            </h:outputText>
-        </h:column>
+            <h:column>
+                <f:facet name="header">current time</f:facet>
+                #{hit.duration}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">execution time</f:facet>
+                #{hit.match}
+            </h:column>
+
+        </h:dataTable>
+
+    </div>
 
 
-    </h:dataTable>
 
 </h:body>
 </html>
