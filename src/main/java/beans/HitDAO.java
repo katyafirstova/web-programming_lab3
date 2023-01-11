@@ -1,18 +1,17 @@
 package beans;
 
-import db.DBHitUtils;
-import interfaces.HitController;
+import dao.DBHitUtils;
+import interfaces.HitInterface;
 import model.HitTable;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "HitDAO", eager = true)
 @ApplicationScoped
-public class HitDAO implements HitController {
+public class HitDAO implements HitInterface {
 
     @Override
     public void insert(HitTable hit) throws SQLException {

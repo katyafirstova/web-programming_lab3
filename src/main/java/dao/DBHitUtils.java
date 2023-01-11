@@ -1,6 +1,5 @@
-package db;
+package dao;
 
-import interfaces.HitController;
 import model.HitTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,6 @@ public class DBHitUtils extends DBConnection{
         ps.close();
     }
 
-
     public List<HitTable> getHits() throws SQLException {
         List<HitTable> hits = new ArrayList<>();
         Statement st = connection.createStatement();
@@ -53,7 +51,6 @@ public class DBHitUtils extends DBConnection{
         return hits;
     }
 
-
     public void clear() {
         try (Statement st = connection.createStatement()) {
             st.executeUpdate("delete from result_table");
@@ -63,8 +60,6 @@ public class DBHitUtils extends DBConnection{
             e.printStackTrace();
         }
     }
-
-
 }
 
 
