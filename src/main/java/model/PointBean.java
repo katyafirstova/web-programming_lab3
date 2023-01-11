@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import utils.HitChecker;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -13,9 +14,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@ManagedBean(name="table")
+@ManagedBean(name = "table")
 @SessionScoped
-public class HitTable {
+public class PointBean {
     private String id;
     private int x;
     private double y;
@@ -23,8 +24,19 @@ public class HitTable {
     private String result;
     private LocalDateTime currentTime;
     private Double executionTime;
-    private boolean clickedOnGraph;
-    public HitTable() {}
+    private boolean isOnGraph;
+
+    public PointBean() {
+    }
+
+    public void calculateResult() {
+        HitChecker checker = new HitChecker();
+        if (checker.checkArea(x, y, r)) {
+            result = "Да";
+        } else {
+            result = "Нет";
+        }
+    }
 
 }
 

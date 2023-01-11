@@ -1,0 +1,26 @@
+html, #page {
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: #e9e6ee;
+    font-weight: 300;
+    overflow: scroll;
+    position: center;
+}
+
+#header {
+    background-color: #D8BFD8;
+    padding-top: 20px;
+    color: black;
+    letter-spacing: 2px;
+    position: center;
+    padding-right: 250px;
+    padding-left: 250px;
+}
+
+h2 {
+    font-size: medium;
+    letter-spacing: 2px;
+}
+

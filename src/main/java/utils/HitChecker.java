@@ -1,5 +1,7 @@
 package utils;
 
+import model.PointBean;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
@@ -9,15 +11,17 @@ import java.util.Arrays;
 import java.util.List;
 
 
-@FacesValidator("hitChecker")
-public class HitChecker implements Validator {
 
-    public String getResult(int x, double y, int r) {
-        String result = null;
+public class HitChecker {
+
+
+    PointBean pointBean = new PointBean();
+
+    public boolean checkArea(int x, double y, int r) {
         if (checkIfValid(x, y, r)) {
-            result = checkIfHit(x, y, r) ? "Да" : "Нет";
+            return checkIfHit(x, y, r);
         }
-        return result;
+        return false;
     }
 
     private boolean checkX(int xVal) {
@@ -71,10 +75,6 @@ public class HitChecker implements Validator {
         return (xVal <= 0 && yVal >= 0 && rVal <= 0 && xVal <= rVal / 2);
     }
 
-    @Override
-    public void validate(FacesContext facesContext, UIComponent uiComponent, Object o) throws ValidatorException {
-
-    }
 }
 
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <ui:include src="header.xhtml"/>
+</h:head>
+
+<h:body>
+    <h:panelGrid class="wrapper">
+        <h:form>
+
+            <h:outputLabel for="x-coordinate">X:</h:outputLabel><br/>
+
+            <h:selectOneMenu id="x-coordinate" value="#{table.x}" converter="javax.faces.Integer"
+                             converterMessage="Выберите значение">
+                <f:validator validatorId="xValidator"/>
+
+            </h:selectOneMenu>
+            <h:message id="x-error" for="x-coordinate" styleClass="error_message"/>
+
+            <h:outputLabel for="y-coordinate">Y:</h:outputLabel><br/>
+            <h:inputText id="y-coordinate" maxlength="6" required="true" placeholder="от -3 до 5"
+                         requiredMessage="Введите кординату Y" value="#{table.y}"
+                         validatorMessage="Число должно быть от -5 до 3"
+                         converterMessage="Введите корректное число"
+                         converter="javax.faces.Double">>
+                <f:validator validatorId="yValidator"/>
+            </h:inputText>
+            <h:message id="y-error" for="y-coordinate" styleClass="error_message"/>
+
+            <h:outputLabel for="r-coordinate">R:</h:outputLabel><br/>
+
+            <h:inputHidden id="r-coordinate">
+            </h:inputHidden>
+            <h:commandLink class="r-coordinate-value" value="1"
+                           style="margin-right:20px;"/>
+            <h:commandLink class="r-coordinate-value" value="2"
+                           style="margin-right:20px;"/>
+            <h:commandLink class="r-coordinate-value" value="3"
+                           style="margin-right:20px;"/>
+            <h:commandLink class="r-coordinate-value" value="4"
+                           style="margin-right:20px;"/>
+            <h:commandLink class="r-coordinate-value" value="5"
+                           style="margin-right:20px;"/>
+            <h:commandButton id="checkBtn" action="#{pointController.insertPoint()}" value="Submit"> </h:commandButton>
+
+
+        </h:form>
+    </h:panelGrid>
+
+    <h:form id="delete-form">
+        <p:commandButton id="clearBtn" value="Очистить" action="#{pointController.clearPoints()}"
+                         type="submit"/>
+    </h:form>
+
+    <h:button value="Вернуться на стартовую страницу" outcome="toHelloPage"/>
+
+    <div id="results-table-area">
+        <h:dataTable id="table-with-data" value="#{pointController.points}" var="point">
+
+            <p:column headerText="x">
+                <h:outputText value="#{point.x}"/>
+            </p:column>
+
+            <p:column headerText="y">
+                <h:outputText value="#{point.y}"/>
+            </p:column>
+
+            <p:column headerText="r">
+                <h:outputText value="#{point.r}"/>
+            </p:column>
+
+            <p:column headerText="result">
+                <h:outputText value="#{point.result}"/>
+            </p:column>
+
+            <p:column headerText="current time">
+                <h:outputText value="#{point.currentTime}"/>
+            </p:column>
+
+            <p:column headerText="execution time">
+                <h:outputText value="#{point.executionTime}"/>
+            </p:column>
+
+        </h:dataTable>
+
+    </div>
+
+</h:body>
+</html>
+

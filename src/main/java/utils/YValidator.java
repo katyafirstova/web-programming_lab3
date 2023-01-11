@@ -10,7 +10,7 @@ import javax.faces.validator.ValidatorException;
 
 
 @FacesValidator("yValidator")
-public class yValidator implements Validator {
+public class YValidator implements Validator {
 
     @Override
     public void validate(FacesContext facesContext, UIComponent uiComponent, Object o) throws ValidatorException {
