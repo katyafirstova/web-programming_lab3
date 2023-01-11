@@ -4,21 +4,35 @@ import javax.faces.bean.ViewScoped;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@ViewScoped
-public class ClockBean{
-    private SimpleDateFormat simpleDateFormat;
-    private Date date;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
-    public ClockBean(SimpleDateFormat simpleDateFormat, Date date) {
-        this.simpleDateFormat = simpleDateFormat;
-        this.date = date;
+@ManagedBean
+@RequestScoped
+public class ClockBean {
+
+    private OffsetDateTime odt = OffsetDateTime.now();
+
+    public String getCurrentTime() {
+        return odt.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 
     public String getCurrentDate() {
-        return simpleDateFormat.format(date);
+        return odt.format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy"));
     }
 
-    public void updateDate() {
-        date = new Date();
+    public void setOffset(String offset) {
+        odt = odt.withOffsetSameLocal(ZoneOffset.of(offset));
     }
+
+    public String getOffset() {
+        return odt.getOffset().getId();
+    }
+
+    public void updateTime() {
+        odt = odt.plusSeconds(5);
+    }
+
 }
