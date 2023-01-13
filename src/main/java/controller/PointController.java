@@ -60,9 +60,4 @@ public class PointController {
         coordinates.setR(newR);
     }
 
-
-
-
-
-
 }
