@@ -1,7 +1,5 @@
 package utils;
 
-import model.HitTable;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -12,7 +10,7 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 @FacesValidator("xValidator")
-public class xValidator implements Validator {
+public class XValidator implements Validator {
     @Override
     public void validate(FacesContext facesContext, UIComponent uiComponent, Object o) throws ValidatorException {
         UISelectOne x_coordinate = (UISelectOne) uiComponent.getAttributes().get("pictureClick");

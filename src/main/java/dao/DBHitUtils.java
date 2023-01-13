@@ -1,9 +1,9 @@
 package dao;
 
-import model.HitTable;
+
+import model.PointBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class DBHitUtils extends DBConnection{
 
     Connection connection;
 
-    public void insertHit(HitTable hit) throws SQLException {
+    public void insertHit(PointBean hit) throws SQLException {
         PreparedStatement ps = connection.prepareStatement("INSERT INTO result_table values (?, ?, ?, ?, ?, ?)");
         ps.setInt(1, hit.getX());
         ps.setDouble(2, hit.getY());
@@ -27,12 +27,12 @@ public class DBHitUtils extends DBConnection{
         ps.close();
     }
 
-    public List<HitTable> getHits() throws SQLException {
-        List<HitTable> hits = new ArrayList<>();
+    public List<PointBean> getHits() throws SQLException {
+        List<PointBean> hits = new ArrayList<>();
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery("select * from result_table");
         while (rs.next()) {
-            HitTable hitTable = getHitData(rs);
+            PointBean hitTable = getHitData(rs);
             hits.add(hitTable);
         }
         st.close();
@@ -40,8 +40,8 @@ public class DBHitUtils extends DBConnection{
         return hits;
     }
 
-    private HitTable getHitData(ResultSet rs) throws SQLException {
-        HitTable hits = new HitTable();
+    private PointBean getHitData(ResultSet rs) throws SQLException {
+        PointBean hits = new PointBean();
         hits.setX(rs.getInt("x"));
         hits.setY(rs.getDouble("y"));
         hits.setR(rs.getInt("r"));
