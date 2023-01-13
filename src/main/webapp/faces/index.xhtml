@@ -79,7 +79,7 @@
             <h:button value="вернуться на стартовую страницу" outcome="toHelloPage"/>
 
 
-            <p:dataTable id="result-table" scrollHeight="500" var="point">
+            <p:dataTable id="result-table" scrollHeight="500" value="#{pointController.insertPoint()}" var="point">
                 <h:column>
                     <f:facet name="header">x</f:facet>
                 <!--    <h:outputText value="#{point.x}"/> -->
@@ -93,11 +93,11 @@
                  <!--   <h:outputText value="#{point.r}"/> -->
                 </h:column>
                 <h:column>
-                    <f:facet name="header">r</f:facet>
+                    <f:facet name="header">result</f:facet>
                  <!--   <h:outputText value="#{point.result}"/> -->
                 </h:column>
                 <h:column>
-                    <f:facet name="header">r</f:facet>
+                    <f:facet name="header">current time</f:facet>
                 <!--    <h:outputText value="#{point.currentTime}"/> -->
                 </h:column>
 
