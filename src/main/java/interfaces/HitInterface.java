@@ -1,6 +1,6 @@
 package interfaces;
 
-import model.HitTable;
+import model.Table;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.List;
 
 
 public interface HitInterface {
-    void insert(HitTable hit) throws SQLException;
+    void insert(Table hit) throws SQLException;
 
-    List<HitTable> getHits() throws SQLException;
+    List<Table> getHits() throws SQLException;
 
     void clear();
 
