@@ -3,7 +3,9 @@ package utils;
 
 import model.Coordinates;
 
-public class HitChecker {
+import java.io.Serializable;
+
+public class HitChecker implements Serializable {
 
     public boolean checkIfHit(Coordinates coordinates) {
         Validator validator = new Validator();

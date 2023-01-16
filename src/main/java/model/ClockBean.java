@@ -1,6 +1,7 @@
 package model;
 
 import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 @ManagedBean
 @RequestScoped
-public class ClockBean {
+public class ClockBean implements Serializable {
 
     private OffsetDateTime odt = OffsetDateTime.now();
 

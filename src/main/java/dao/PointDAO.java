@@ -1,94 +1,152 @@
 package dao;
 
-import interfaces.HitInterface;
 import model.Table;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalTime;
+import java.util.Deque;
+import java.util.LinkedList;
 
-@ManagedBean(name = "HitDAO", eager = true)
-@ApplicationScoped
-public class PointDAO implements HitInterface {
+import dao.interfaces.HitInterface;
+import utils.ConnectionUtils;
 
-    static final Logger LOG = LoggerFactory.getLogger(PointDAO.class);
+
+public class PointDAO implements HitInterface, Serializable {
+
     private static final String DB_USER = "db.user";
     private static final String DB_PASSWORD = "db.password";
     private static final String DB_URL = "db.url";
 
-    public Connection getDBConnection() {
-        Connection connection = null;
+    public Connection getDBConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        return DriverManager.getConnection(
+                ConnectionUtils.get(DB_URL),
+                ConnectionUtils.get(DB_USER),
+                ConnectionUtils.get(DB_PASSWORD));
+    }
+
+
+    @Override
+    public Table insert(Table table) throws SQLException, ClassNotFoundException {
+        Connection connection = getDBConnection();
+        PreparedStatement ps = null;
         try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            connection.setAutoCommit(true);
-            LOG.info("Соединение установлено");
-        } catch (ClassNotFoundException e) {
-            LOG.debug("Драйвер не найден");
+            ps = connection.prepareStatement("INSERT INTO result_table values (?, ?, ?, ?)");
+            ps.setInt(1, table.getX());
+            ps.setDouble(2, table.getY());
+            ps.setInt(3, table.getR());
+            ps.setBoolean(4, table.getResult());
+            ps.executeUpdate();
         } catch (SQLException e) {
-            LOG.debug(String.format("Ошибка при подключении к базе данных: %s", e.getMessage()));
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return connection;
+        return table;
     }
 
     @Override
-    public void insert(Table table) throws SQLException {
+    public Deque<Table> getHits() throws SQLException, ClassNotFoundException {
+        Deque<Table> hits = new LinkedList<>();
         Connection connection = getDBConnection();
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO result_table values (?, ?, ?, ?, ?, ?)");
-        ps.setInt(1, table.getX());
-        ps.setDouble(2, table.getY());
-        ps.setInt(3, table.getR());
-        ps.setBoolean(4, table.getResult());
-        ps.setDate(5, Date.valueOf(table.getCurrentTime().toLocalDate()));
-        ps.executeUpdate();
-        ps.close();
+        Statement st = null;
+        try {
+            st = connection.createStatement();
+            ResultSet rs = st.executeQuery("select * from result_table");
+            while (rs.next()) {
+                Table hitTable = getHitData(rs);
+                hits.push(hitTable);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
 
-    }
-
-    @Override
-    public List<Table> getHits() throws SQLException {
-        Connection connection = getDBConnection();
-        List<Table> hits = new ArrayList<>();
-        Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("select * from result_table");
-
-        while (rs.next()) {
-            Table hitTable = getHitData(rs);
-            hits.add(hitTable);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        st.close();
-        rs.close();
-
         return hits;
-
     }
 
 
-    private Table getHitData(ResultSet rs) throws SQLException {
+    private Table getHitData(ResultSet rs) throws SQLException, ClassNotFoundException {
         Table hits = new Table();
         hits.setX(rs.getInt("x"));
         hits.setY(rs.getDouble("y"));
         hits.setR(rs.getInt("r"));
         hits.setResult(rs.getBoolean("result"));
-        hits.setCurrentTime(rs.getDate("currentTime").toLocalDate().atStartOfDay());
-        //hits.setExecutionTime(rs.getString("executionTime"));
+        insert(hits);
         return hits;
+
     }
 
 
     @Override
-    public void clear() {
+    public void clear() throws SQLException, ClassNotFoundException {
         Connection connection = getDBConnection();
-        try (Statement st = connection.createStatement()) {
+        Statement st = null;
+        try {
+            st = connection.createStatement();
             st.executeUpdate("delete from result_table");
             st.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+
+    public boolean isEmpty() throws SQLException, ClassNotFoundException {
+        Connection connection = getDBConnection();
+        Statement st = null;
+        try {
+            st = connection.createStatement();
+            ResultSet rs = st.executeQuery("select * FROM result_table");
+            boolean isNotEmpty = rs.next();
+            st.close();
+            connection.close();
+            return !isNotEmpty;
+        } catch (NullPointerException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }

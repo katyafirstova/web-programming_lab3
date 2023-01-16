@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://java.sun.com/jsf/html"
->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://xmlns.jcp.org/jsf/html">
 
 <h:head>
     <h:outputScript library="scripts" name="clock.js"/>
@@ -14,27 +13,39 @@
 
 <h:body>
     <h:panelGrid class="wrapper">
+
+        <div class="image" id="image-div">
+            <h:form id="hidden-form">
+                <div id="image-container">
+                    <h:graphicImage
+                            styleClass="image"
+                            onclick="onImageClick(event)"
+                            library="area" name="area.png"
+                    />
+                </div>
+
+                <p:commandButton
+                        id="hidden-submit"
+                        style="display: none"
+                        value="Submit"
+                        action="#{pointController.insertPoint()}"
+                        update="image, result-table"
+                        oncomplete="updateImage()"
+                />
+            </h:form>
+        </div>
+
+
         <h:form>
-            <h:graphicImage
-                    id="image"
-                    library="area" name="area.png"
-            />
+
             <br/><br/>
             <h:outputLabel for="x-coordinate">x:</h:outputLabel>
             <br/><br/>
 
-            <h:selectOneMenu id="x-coordinate" converter="javax.faces.Integer"
-                             converterMessage="Выберите значение" value="#{pointController.coordinates.x}">
-                <f:selectItem itemLabel="-3"/>
-                <f:selectItem itemLabel="-2"/>
-                <f:selectItem itemLabel="1"/>
-                <f:selectItem itemLabel="0"/>
-                <f:selectItem itemLabel="1"/>
-                <f:selectItem itemLabel="2"/>
-                <f:selectItem itemLabel="3"/>
-
-            </h:selectOneMenu>
-            <h:message id="x-error" for="x-coordinate" styleClass="error_message"/>
+            <p:selectOneRadio id="x-coordinate" value="#{pointController.coordinates.x}">
+                <f:ajax event="click"/>
+                <f:selectItems value="#{pointController.possibleX}"/>
+            </p:selectOneRadio>
             <br/><br/><br/>
 
             <h:outputLabel for="y-coordinate">y:</h:outputLabel><br/>
@@ -49,63 +60,42 @@
             <br/><br/><br/>
             <h:outputLabel for="r-coordinate">r:</h:outputLabel><br/>
 
-            <h:inputHidden id="r-coordinate">
-            </h:inputHidden>
-
-            <h:commandLink class="r-coordinate-value" value="1">
-                <f:ajax event="click" listener="#{pointController.updateRadius(1)}"/>
-            </h:commandLink>
-
-            <h:commandLink class="r-coordinate-value" value="2">
-                <f:ajax event="click" listener="#{pointController.updateRadius(2)}"/>
-            </h:commandLink>
-
-            <h:commandLink class="r-coordinate-value" value="3">
-                <f:ajax event="click" listener="#{pointController.updateRadius(3)}"/>
-            </h:commandLink>
-            <h:commandLink class="r-coordinate-value" value="4">
-                <f:ajax event="click" listener="#{pointController.updateRadius(4)}"/>
-            </h:commandLink>
-            <h:commandLink class="r-coordinate-value" value="5">
-                <f:ajax event="click" listener="#{pointController.updateRadius(5)}"/>
-            </h:commandLink>
+            <h:inputText id="r-coordinate" name="r-coord" maxlength="6" required="true" placeholder="от 1 до 5"
+                         value="#{pointController.coordinates.r}"
+                         validatorMessage="Число должно быть от -5 до 3"
+                         converterMessage="Введите корректное число"
+                         converter="javax.faces.Double">
+            </h:inputText>
             <br/><br/><br/>
 
-            <h:commandButton id="checkBtn" action="#{pointController.insertPoint()}" value="Submit"> </h:commandButton>
+            <h:commandButton id="checkBtn" actionListener="#{pointController.insertPoint()}" value="Submit"> </h:commandButton>
             <br/><br/><br/>
-            <p:commandButton id="clearBtn" value="очистить" action="#{pointController.clearPoints()}"
+            <p:commandButton id="clearBtn" value="очистить" action="#{pointController.clear()}"
                              type="submit"/>
             <br/> <br/> <br/>
             <h:button value="вернуться на стартовую страницу" outcome="toHelloPage"/>
 
-
-            <p:dataTable id="result-table" scrollHeight="500" value="#{pointController.insertPoint()}" var="point">
+         <h:dataTable id="result-table" scrollHeight="500"
+                     value="#{pointController.hits}" var="point">
                 <h:column>
                     <f:facet name="header">x</f:facet>
-                <!--    <h:outputText value="#{point.x}"/> -->
+                    <h:outputText value="#{point.x}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">y</f:facet>
-                  <!--  <h:outputText value="#{point.y}"/> -->
-                 </h:column>
+                    <h:outputText value="#{point.y}"/>
+                </h:column>
                 <h:column>
                     <f:facet name="header">r</f:facet>
-                 <!--   <h:outputText value="#{point.r}"/> -->
+                    <h:outputText value="#{point.r}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">result</f:facet>
-                 <!--   <h:outputText value="#{point.result}"/> -->
+                    <h:outputText value="#{point.result}"/>
                 </h:column>
-                <h:column>
-                    <f:facet name="header">current time</f:facet>
-                <!--    <h:outputText value="#{point.currentTime}"/> -->
-                </h:column>
+            </h:dataTable>
 
-
-
-            </p:dataTable>
         </h:form>
-
 
     </h:panelGrid>
 

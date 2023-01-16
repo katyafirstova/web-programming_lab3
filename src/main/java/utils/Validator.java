@@ -3,15 +3,16 @@ package utils;
 import model.Coordinates;
 
 import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-@ManagedBean(name = "validator")
-public class Validator {
+public class Validator implements Serializable {
     public Validator() {
     }
 
     public Boolean validate(Coordinates coordinates) {
+
         int x = coordinates.getX();
         double y = coordinates.getY();
         int r = coordinates.getR();

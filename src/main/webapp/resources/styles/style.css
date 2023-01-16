@@ -68,7 +68,29 @@ h2 {
 }
 
 .r-coordinate-value:hover, .r-coordinate-value:focus {
-    color: darkblue;
+    color: wheat;
+}
+
+#image-container {
+    position: relative;
+    margin: auto;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+}
+
+.point {
+    width: 3px;
+    height: 3px;
+    position: absolute;
+}
+
+.in {
+    background-color: black;
+}
+
+.out {
+    background-color: red;
 }
 
 

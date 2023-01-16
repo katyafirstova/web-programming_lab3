@@ -10,8 +10,18 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+
+    <display-name>Лабораторная работа</display-name>
+    <description>Лабораторная работа №2 по веб-программированию</description>
+
     <welcome-file-list>
-        <welcome-file>hello_page.xhtml</welcome-file>
+        <welcome-file>faces/hello_page.xhtml</welcome-file>
     </welcome-file-list>
+
+    <context-param>
+        <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
 
 </web-app>
