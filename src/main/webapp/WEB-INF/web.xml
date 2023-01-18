@@ -1,7 +1,7 @@
 <web-app version="2.5"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemalocation=" http://java.sun.com/xml/ns/javaee
-        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+         xsi:schemalocation=" http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -12,16 +12,10 @@
     </servlet-mapping>
 
     <display-name>Лабораторная работа</display-name>
-    <description>Лабораторная работа №2 по веб-программированию</description>
+    <description>Лабораторная работа №3 по веб-программированию</description>
 
     <welcome-file-list>
         <welcome-file>faces/hello_page.xhtml</welcome-file>
     </welcome-file-list>
-
-    <context-param>
-        <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
 
 </web-app>

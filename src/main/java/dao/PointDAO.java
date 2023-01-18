@@ -1,20 +1,21 @@
 package dao;
 
 import model.Table;
-
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.sql.*;
-import java.time.LocalTime;
 import java.util.Deque;
 import java.util.LinkedList;
 
 import dao.interfaces.HitInterface;
 import utils.ConnectionUtils;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
+
+@ManagedBean(name="dao")
+@ApplicationScoped
 public class PointDAO implements HitInterface, Serializable {
 
     private static final String DB_USER = "db.user";
@@ -63,9 +64,10 @@ public class PointDAO implements HitInterface, Serializable {
         Deque<Table> hits = new LinkedList<>();
         Connection connection = getDBConnection();
         Statement st = null;
+        ResultSet rs = null;
         try {
             st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select * from result_table");
+            rs = st.executeQuery("select * from result_table");
             while (rs.next()) {
                 Table hitTable = getHitData(rs);
                 hits.push(hitTable);
@@ -79,6 +81,9 @@ public class PointDAO implements HitInterface, Serializable {
                 }
                 if (st != null) {
                     st.close();
+                }
+                if(rs != null) {
+                    rs.close();
                 }
 
             } catch (SQLException e) {
@@ -126,9 +131,10 @@ public class PointDAO implements HitInterface, Serializable {
     public boolean isEmpty() throws SQLException, ClassNotFoundException {
         Connection connection = getDBConnection();
         Statement st = null;
+        ResultSet rs = null;
         try {
             st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select * FROM result_table");
+            rs = st.executeQuery("select * FROM result_table");
             boolean isNotEmpty = rs.next();
             st.close();
             connection.close();
@@ -137,12 +143,17 @@ public class PointDAO implements HitInterface, Serializable {
             e.printStackTrace();
         } finally {
             try {
+
                 if (connection != null) {
                     connection.close();
                 }
                 if (st != null) {
                     st.close();
                 }
+                if(rs != null) {
+                    rs.close();
+                }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

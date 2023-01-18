@@ -7,15 +7,16 @@ import lombok.Setter;
 import model.Coordinates;
 import model.Table;
 import utils.HitChecker;
+
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
 
 import java.util.*;
 
-@ManagedBean(name = "pointController", eager = true)
-@SessionScoped
+@ManagedBean(name = "pointController")
+@ApplicationScoped
 public class PointController implements Serializable {
 
     final private PointDAO pointDAO = new PointDAO();
@@ -26,9 +27,7 @@ public class PointController implements Serializable {
 
     @Setter
     @Getter
-    private Coordinates coordinates = new Coordinates(0, 0.0, 1);
-
-    private Table table;
+    private Coordinates coordinates = new Coordinates();
 
     public void insertPoint() throws SQLException, ClassNotFoundException {
         if (Objects.isNull(pointDAO.getDBConnection()))
@@ -60,10 +59,6 @@ public class PointController implements Serializable {
 
     }
 
-    public void updateRadius(Integer newR) {
-        coordinates.setR(newR);
-    }
 }
-
 
 

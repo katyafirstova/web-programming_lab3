@@ -4,3 +4,6 @@ create table result_table(x int, y double precision, r int, result text);
 
 
 select * from result_table;
+
+delete from result_table;
+

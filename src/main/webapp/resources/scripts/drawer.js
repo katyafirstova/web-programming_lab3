@@ -1,6 +1,6 @@
 function onImageClick (event) {
 
-    const r = document.getElementById("result-table").rows[1].cells[2].textContent;
+    const r = document.getElementById("rVal");
 
     let coordinates = getCoordinates(event.offsetX, event.offsetY, r);
 
@@ -33,9 +33,9 @@ function updateImage (event) {
     let points = [];
     for (let i = 1; i < rows.length; ++i) {
         points.push({
-            x: rows[i].cells[0].textContent,
-            y: rows[i].cells[1].textContent,
-            result: rows[i].cells[3].textContent,
+            x: window.document.getElementById("xVal"),
+            y: window.document.getElementById("yVal"),
+            result: window.document.getElementById("res")
         })
     }
 
@@ -47,7 +47,6 @@ function updateImage (event) {
 }
 
 function drawPoints (points) {
-    const r = document.getElementById("data-table").rows[1].cells[2].textContent;
 
     const imageElement = window.document.getElementById('image-container');
 

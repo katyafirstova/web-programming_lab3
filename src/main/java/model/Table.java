@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @ToString
 @ManagedBean(name = "table")
+@SessionScoped
 @AllArgsConstructor
 public class Table implements Serializable {
 
