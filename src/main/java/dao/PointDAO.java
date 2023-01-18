@@ -100,7 +100,6 @@ public class PointDAO implements HitInterface, Serializable {
         hits.setY(rs.getDouble("y"));
         hits.setR(rs.getInt("r"));
         hits.setResult(rs.getBoolean("result"));
-        insert(hits);
         return hits;
 
     }
