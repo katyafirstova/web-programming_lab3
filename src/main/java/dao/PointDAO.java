@@ -82,7 +82,7 @@ public class PointDAO implements HitInterface, Serializable {
                 if (st != null) {
                     st.close();
                 }
-                if(rs != null) {
+                if (rs != null) {
                     rs.close();
                 }
 
@@ -124,39 +124,6 @@ public class PointDAO implements HitInterface, Serializable {
                 e.printStackTrace();
             }
         }
-    }
 
-
-    public boolean isEmpty() throws SQLException, ClassNotFoundException {
-        Connection connection = getDBConnection();
-        Statement st = null;
-        ResultSet rs = null;
-        try {
-            st = connection.createStatement();
-            rs = st.executeQuery("select * FROM result_table");
-            boolean isNotEmpty = rs.next();
-            st.close();
-            connection.close();
-            return !isNotEmpty;
-        } catch (NullPointerException | SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-
-                if (connection != null) {
-                    connection.close();
-                }
-                if (st != null) {
-                    st.close();
-                }
-                if(rs != null) {
-                    rs.close();
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
     }
 }

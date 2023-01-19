@@ -8,13 +8,11 @@ import java.io.Serializable;
 public class HitChecker implements Serializable {
 
     public boolean checkIfHit(Coordinates coordinates) {
-        Validator validator = new Validator();
-        if (validator.validate(coordinates)) {
-            return (checkRectangle(coordinates.getX(), coordinates.getY(), coordinates.getR()) ||
-                    checkCircle(coordinates.getX(), coordinates.getY(), coordinates.getR()) ||
-                    checkTriangle(coordinates.getX(), coordinates.getY(), coordinates.getR()));
-        }
-        return false;
+
+        return (checkRectangle(coordinates.getX(), coordinates.getY(), coordinates.getR()) ||
+                checkCircle(coordinates.getX(), coordinates.getY(), coordinates.getR()) ||
+                checkTriangle(coordinates.getX(), coordinates.getY(), coordinates.getR()));
+
 
     }
 

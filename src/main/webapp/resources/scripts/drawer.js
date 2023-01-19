@@ -1,6 +1,6 @@
 function onImageClick (event) {
 
-    const r = document.getElementById("rVal");
+    const r = $('.');
 
     let coordinates = getCoordinates(event.offsetX, event.offsetY, r);
 
@@ -83,41 +83,3 @@ updateImage();
 
 
 
-/* валидация
-function validate (form) {
-    let value = form.elements[11].value;
-    let errorMessage;
-
-    let y = round(value);
-
-    if (isNaN(value) || value == "") {
-        errorMessage = "Пожалуйста, введите число";
-    }
-    if (y <= -3 || y >= 3) {
-        errorMessage = "Значение Y находится вне интервала (-3; 3)";
-    }
-
-    if (errorMessage) {
-        showMessage(errorMessage, "error");
-        return false;
-    }
-    return true;
-}
-
-function round (number) {
-    if (number.split('.').length == 2) {
-        return number.split('.')[0] + '.' + number.split('.')[1].substr(0, 5);
-    }
-
-    return number;
-}
-
-function showMessage (message, type) {
-    let div = document.getElementById("message");
-
-    div.id = "message";
-    div.innerText = message;
-    div.className = type;
-}
-
-*/
