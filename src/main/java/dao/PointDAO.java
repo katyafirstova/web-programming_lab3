@@ -13,7 +13,6 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-
 @ManagedBean(name="dao")
 @ApplicationScoped
 public class PointDAO implements HitInterface, Serializable {
@@ -39,7 +38,7 @@ public class PointDAO implements HitInterface, Serializable {
             ps = connection.prepareStatement("INSERT INTO result_table values (?, ?, ?, ?)");
             ps.setInt(1, table.getX());
             ps.setDouble(2, table.getY());
-            ps.setInt(3, table.getR());
+            ps.setDouble(3, table.getR());
             ps.setBoolean(4, table.getResult());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -98,7 +97,7 @@ public class PointDAO implements HitInterface, Serializable {
         Table hits = new Table();
         hits.setX(rs.getInt("x"));
         hits.setY(rs.getDouble("y"));
-        hits.setR(rs.getInt("r"));
+        hits.setR(rs.getDouble("r"));
         hits.setResult(rs.getBoolean("result"));
         return hits;
 

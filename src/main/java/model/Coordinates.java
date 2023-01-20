@@ -17,5 +17,5 @@ public class Coordinates implements Serializable {
 
     private int x;
     private double y;
-    private int r;
+    private double r;
 }

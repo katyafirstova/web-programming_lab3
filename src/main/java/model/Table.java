@@ -20,7 +20,7 @@ public class Table implements Serializable {
 
     private int x;
     private double y;
-    private int r;
+    private double r;
     private boolean result;
 
   //  private String executionTime;

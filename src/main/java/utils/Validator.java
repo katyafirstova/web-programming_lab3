@@ -15,7 +15,7 @@ public class Validator implements Serializable {
 
         int x = coordinates.getX();
         double y = coordinates.getY();
-        int r = coordinates.getR();
+        double r = coordinates.getR();
 
         List<Integer> xList = Arrays.asList(-3, -2, -1, 0, 1, 2, 3, 4, 5);
         List<Integer> rList = Arrays.asList(1, 2, 3, 4, 5);
