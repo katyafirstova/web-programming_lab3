@@ -4,7 +4,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ace="http://www.icefaces.org/icefaces/components"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/html">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
@@ -21,24 +22,6 @@
 
 
         <ui:include src="plot.xhtml"/>
-
-      <!--  <h:form class="hidden-input" style="display: none">
-            <h:inputText styleClass="canvasX" value="#{pointController.coordinates.x}">
-                <f:ajax event="change" execute="@all" render="@all"/>
-            </h:inputText>
-            <h:inputText styleClass="canvasY" value="#{pointController.coordinates.y}">
-                <f:ajax event="change" execute="@all" render="@all"/>
-            </h:inputText>
-            <h:inputText styleClass="canvasR" value="#{pointController.coordinates.r}">
-                <f:ajax event="change" execute="@all" render="@all"/>
-            </h:inputText>
-            <h:commandButton styleClass="hidden-submit-button"
-                             type="submit"
-                             value="Check!"
-                             action="#{pointController.insertPoint()}">
-                <f:ajax render="@all" onevent="redrawListener"/>
-            </h:commandButton>
-        </h:form> -->
 
 
         <h:form id="form">
@@ -57,78 +40,81 @@
             <h:outputLabel for="y-coordinate">y:</h:outputLabel><br/>
             <br/>
             <div class="form-control">
-            <h:inputText id="y-coordinate" styleClass="inputY" maxlength="6" required="true" a:placeholder="от -3 до 5"
-                         value="#{pointController.coordinates.y}"
-                         validatorMessage="Ожидается число от -3 до 5">
-                <f:ajax execute="@this" render="@all"/>
-                <f:validateRequired/>
-                <f:validateDoubleRange minimum="-3" maximum="5"/>
-            </h:inputText>
+                <h:inputText id="y-coordinate" styleClass="inputY" maxlength="6" required="true"
+                             a:placeholder="от -3 до 5"
+                             value="#{pointController.coordinates.y}"
+                             validatorMessage="Ожидается число от -3 до 5">
+                    <f:ajax execute="@this" render="@all"/>
+                    <f:validateRequired/>
+                    <f:validateDoubleRange minimum="-3" maximum="5"/>
+                </h:inputText>
 
-            <i class="fas fa-check-circle"/>
-            <i class="fas fa-exclamation-circle"/>
-            <small>Error message</small>
-            <span class="highlight"/>
-            <span class="bar"/>
-            <!-- <span class="yError" aria-live="polite"/> -->
-            <div class="yError" id="yError">
-            </div>
+                <i class="fas fa-check-circle"/>
+                <i class="fas fa-exclamation-circle"/>
+                <small>Error message</small>
+                <span class="highlight"/>
+                <span class="bar"/>
+                <!-- <span class="yError" aria-live="polite"/> -->
+                <div class="yError" id="yError">
+                </div>
             </div>
             <br/><br/><br/>
             <h:outputLabel for="r-coordinate">r:</h:outputLabel><br/>
 
             <div class="form-control">
-            <h:inputText id="r-coordinate" styleClass="inputR" name="r-coord" maxlength="6" required="true"
-                         a:placeholder="от 1 до 5"
-                         value="#{pointController.coordinates.r}"
-                         validatorMessage="Ожидается число от 1 до 5" onchange="TargetDot.update()">
-                <f:validateRequired/>
-                <f:validateDoubleRange minimum="1" maximum="5"/>
-            </h:inputText>
-            <small>Error message</small>
-            <!-- <span class="rError" aria-live="polite"></span> -->
-            <div class="rError" id="rError">
-            </div>
+                <h:inputText id="r-coordinate" styleClass="inputR" name="r-coord" maxlength="6" required="true"
+                             a:placeholder="от 1 до 5"
+                             value="#{pointController.coordinates.r}"
+                             validatorMessage="Ожидается число от 1 до 5" onchange="TargetDot.update()">
+                    <f:validateRequired/>
+                    <f:validateDoubleRange minimum="1" maximum="5"/>
+                </h:inputText>
+                <small>Error message</small>
+                <!-- <span class="rError" aria-live="polite"></span> -->
+                <div class="rError" id="rError">
+                </div>
             </div>
             <br/><br/><br/>
 
             <h:commandButton styleClass="submitBtn" type="submit" id="checkBtn"
-                             actionListener="#{pointController.insertPoint()}" value="Submit" >
-                <f:ajax process="@form"
-                        oncomplete="TargetDot.create()"/>
+                             value="Submit" actionListener="#{pointController.insertPoint()}"  oncomplete="TargetDot.update()">
+                <p:ajax process="@form" update="result-table"
+                       />
             </h:commandButton>
-            <p:commandButton id="clearBtn" styleClass="clearBtn" value="очистить" actionListener="#{pointController.clear()}"
-                            >
+            <p:commandButton id="clearBtn" styleClass="clearBtn" value="очистить"
+                             actionListener="#{pointController.clear()}">
             </p:commandButton>
             <h:button styleClass="returnBtn" value="назад" outcome="toHelloPage"/>
-<div>
-         <h:dataTable id="result-table" styleClass="resultTable" scrollHeight="500"
-                     value="#{pointController.hits}" var="point">
-                <h:column>
-                    <f:facet name="header">x</f:facet>
-                    <h:outputText styleClass="x-table-value" value="#{point.x}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">y</f:facet>
-                    <h:outputText  styleClass="y-table-value"  value="#{point.y}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">r</f:facet>
-                    <h:outputText  styleClass="r-table-value"  value="#{point.r}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">result</f:facet>
-                    <h:outputText styleClass="result-table-value" value="#{(point.result? 'Да' : 'Нет')} " />
-                </h:column>
-            </h:dataTable>
-</div>
+            <div>
+                <h:dataTable id="result-table" styleClass="resultTable" scrollHeight="500"
+                             value="#{pointController.hits}" var="point">
+                    <h:column>
+                        <f:facet name="header">x</f:facet>
+                        <h:outputText styleClass="x-table-value" value="#{point.x}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">y</f:facet>
+                        <h:outputText styleClass="y-table-value" value="#{point.y}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">r</f:facet>
+                        <h:outputText styleClass="r-table-value" value="#{point.r}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">result</f:facet>
+                        <h:outputText styleClass="result-table-value" value="#{(point.result? 'Да' : 'Нет')} "/>
+                    </h:column>
+                </h:dataTable>
+            </div>
 
         </h:form>
 
     </h:panelGrid>
     <h:outputScript library="scripts" name="clock.js"/>
-    <h:outputScript library="scripts" name="TargetDot.js"/>
     <h:outputScript library="scripts" name="plotListener.js"/>
+    <h:outputScript library="scripts" name="TargetDot.js"/>
+
+
 </h:body>
 </html>
 

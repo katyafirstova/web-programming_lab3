@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+   <h:outputScript name="scripts/TargetDot.js"/>
+   <h:outputScript name="scripts/plotListener.js"/>
+
+   <div class="plot-container">
+      <svg height="600" width="600" id="plot" xmlns="http://www.w3.org/2000/svg" onclick="newPoint()">
+         <polygon class="rectangle-graph" fill="#95a3b3" points="300,300 300,200 100,200 100,300"/>
+
+         <polygon class="triangle-graph" fill="#95a3b3" points="300,300 400,300 300,500"/>
+
+         <path class="circle-graph" d="M 300,100 A 200,200 0 0, 1 500,300" fill="#95a3b3"/>
+         <polygon class="circle-graph" fill="#95a3b3" points="300,300 501,300 300,99"/>
+
+         <!--        Coordinate System-->
+         <line class="axis" stroke="black" x1="50" x2="550" y1="300" y2="300"/>
+         <line class="axis" stroke="black" x1="300" x2="300" y1="50" y2="550"/>
+
+         <line class="arrow" stroke="black" x1="535" x2="550" y1="295" y2="300"/>
+         <line class="arrow" stroke="black" x1="535" x2="550" y1="305" y2="300"/>
+
+         <line class="arrow" stroke="black" x1="295" x2="300" y1="65" y2="50"/>
+         <line class="arrow" stroke="black" x1="300" x2="305" y1="50" y2="65"/>
+
+         <line class="Point-line" stroke="black" x1="400" x2="400" y1="295" y2="305"/>
+         <line class="Point-line" stroke="black" x1="500" x2="500" y1="295" y2="305"/>
+         <line class="Point-line" stroke="black" x1="200" x2="200" y1="295" y2="305"/>
+         <line class="Point-line" stroke="black" x1="100" x2="100" y1="295" y2="305"/>
+
+         <line class="Point-line" stroke="black" x1="295" x2="305" y1="400" y2="400"/>
+         <line class="Point-line" stroke="black" x1="295" x2="305" y1="500" y2="500"/>
+         <line class="Point-line" stroke="black" x1="295" x2="305" y1="200" y2="200"/>
+         <line class="Point-line" stroke="black" x1="295" x2="305" y1="100" y2="100"/>
+
+         <text class="Point-text" x="310" y="205" font-size="20px">R/2</text>
+         <text class="Point-text" x="310" y="105" font-size="20px">R</text>
+         <text class="Point-text" x="310" y="405" font-size="20px">-R/2</text>
+         <text class="Point-text" x="310" y="505" font-size="20px">-R</text>
+
+         <text class="Point-text" x="95" y="290" font-size="20px">-R</text>
+         <text class="Point-text" x="195" y="290" font-size="20px">-R/2</text>
+         <text class="Point-text" x="395" y="290" font-size="20px">R/2</text>
+         <text class="Point-text" x="495" y="290" font-size="20px">R</text>
+
+         <text class="Point-text" x="550" y="290" font-size="20px">X</text>
+         <text class="Point-text" x="310" y="60" font-size="20px">Y</text>
+
+
+         <circle cx=" " cy=" " fill="" id="target-dot" r="3"/>
+      </svg>
+   </div>
+
+   <h:form id="plot-form" style="display:none;">
+      <h:inputHidden id="plot-valueX" value="#{pointController.coordinates.x}"/>
+      <h:inputHidden id="plot-valueY" value="#{pointController.coordinates.y}"/>
+      <h:inputHidden id="plot-valueR" value="#{pointController.coordinates.r}"/>
+
+      <h:commandButton styleClass="button navigation-button" id="plot-check">
+         <p:ajax process="@form" listener="#{pointController.insertPoint()}"
+                oncomplete="TargetDot.create()"/>
+      </h:commandButton>
+   </h:form>
+</ui:composition>

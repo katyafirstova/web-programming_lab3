@@ -12,6 +12,14 @@ body, html {
 h3 {
     margin-left: 50px;
 }
+.y-table-value {}
+
+.x-table-value {}
+
+.r-table-value {}
+
+.result-table-value {}
+
 
 .wrapper {
     display: flex;
