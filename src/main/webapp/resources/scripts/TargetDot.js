@@ -9,13 +9,14 @@ class TargetDot {
 
 
     static create() {
-            this.x = $(".x-table-value")
-            this.y = $(".y-table-value")
-            this.r = $(".r-table-value")
-            this.result = $(".result-table-value")
+            this.x = document.getElementById('plot-form:plot-valueX').value;
+            this.y =  document.getElementById('plot-form:plot-valueY').value;
+            this.r =  document.getElementById('plot-form:plot-valueR').value
+            this.result =   document.getElementById('plot-form:plot-check').value;
             this.calculateColor()
             this.calculateCoordinates()
     }
+
 
     static calculateCoordinates() {
         const calcX = 300 + this.x * 200 / this.r

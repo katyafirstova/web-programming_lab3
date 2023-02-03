@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <h:form id="helloForm">
+    <h:form id="timeForm">
         <h:inputHidden id="timeOffset" readonly="true" value="#{clockBean.offset}"/>
         <p:poll listener="#{clockBean.updateTime}" process="timeOffset" update="time date" interval="5"
                 onstart="setTimeOffset"/>

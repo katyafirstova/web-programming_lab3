@@ -5,7 +5,7 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:act="http://java.sun.com/jsf/html">
 
 
 <h:head>
@@ -20,9 +20,7 @@
 <h:body>
     <h:panelGrid class="wrapper">
 
-
-        <ui:include src="plot.xhtml"/>
-
+            <ui:include src="plot.xhtml"/>
 
         <h:form id="form">
 
@@ -77,12 +75,12 @@
             <br/><br/><br/>
 
             <h:commandButton styleClass="submitBtn" type="submit" id="checkBtn"
-                             value="Submit" actionListener="#{pointController.insertPoint()}"  oncomplete="TargetDot.update()">
-                <p:ajax process="@form" update="result-table"
-                       />
+                             value="Submit">
+                <p:ajax process="@form" listener="#{pointController.insertPoint()}" update="result-table"
+                        oncomplete="TargetDot.create()"/>
             </h:commandButton>
-            <p:commandButton id="clearBtn" styleClass="clearBtn" value="очистить"
-                             actionListener="#{pointController.clear()}">
+            <p:commandButton id="clearBtn" styleClass="clearBtn" value="очистить">
+                <p:ajax listener="#{pointController.clear()}" update="result-table"/>
             </p:commandButton>
             <h:button styleClass="returnBtn" value="назад" outcome="toHelloPage"/>
             <div>
@@ -109,8 +107,8 @@
 
         </h:form>
 
+
     </h:panelGrid>
-    <h:outputScript library="scripts" name="clock.js"/>
     <h:outputScript library="scripts" name="plotListener.js"/>
     <h:outputScript library="scripts" name="TargetDot.js"/>
 

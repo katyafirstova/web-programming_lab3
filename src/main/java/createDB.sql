@@ -5,5 +5,7 @@ create table result_table(x int, y double precision, r double precision, result 
 
 select * from result_table;
 
+delete from result_table;
+
 
 

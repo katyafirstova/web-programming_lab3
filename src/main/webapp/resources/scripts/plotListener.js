@@ -2,15 +2,12 @@ function newPoint() {
 
     const rect = document.getElementById("plot").getBoundingClientRect();
     const valueR =$('.inputR').val();
-    //Координаты точки (0, 0) в системе координат графика
     const centerX = rect.left + 300
     const centerY = rect.top + 300
 
-    // Координаты выбранной точки в системе координат окна
     const valueX = event.clientX
     const valueY = event.clientY
 
-    // Координаты выбранной точки в системе координат графика
     const calcX = ((valueX - centerX) * valueR / 200).toFixed(3)
     const calcY = ((centerY - valueY) * valueR / 200).toFixed(3)
 
