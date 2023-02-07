@@ -7,16 +7,14 @@ class TargetDot {
         this.color = options.color
     }
 
-
     static create() {
-            this.x = document.getElementById('plot-form:plot-valueX').value;
-            this.y =  document.getElementById('plot-form:plot-valueY').value;
-            this.r =  document.getElementById('plot-form:plot-valueR').value
-            this.result =   document.getElementById('plot-form:plot-check').value;
-            this.calculateColor()
-            this.calculateCoordinates()
+        this.x = document.getElementById('plot-form:plot-valueX').value;
+        this.y =  document.getElementById('plot-form:plot-valueY').value;
+        this.r =  document.getElementById('plot-form:plot-valueR').value
+        this.result =   document.getElementById('plot-form:plot-check').value;
+        this.calculateColor()
+        this.calculateCoordinates()
     }
-
 
     static calculateCoordinates() {
         const calcX = 300 + this.x * 200 / this.r

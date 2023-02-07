@@ -5,7 +5,7 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:act="http://java.sun.com/jsf/html">
+      xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
@@ -14,6 +14,7 @@
     <h:outputStylesheet name="/styles/button.css"/>
     <h:outputStylesheet name="/styles/style.css"/>
     <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
+
 
 </h:head>
 
@@ -76,41 +77,23 @@
 
             <h:commandButton styleClass="submitBtn" type="submit" id="checkBtn"
                              value="Submit">
-                <p:ajax process="@form" listener="#{pointController.insertPoint()}" update="result-table"
-                        oncomplete="TargetDot.create()"/>
+                <p:ajax process="@form" listener="#{pointController.insertPoint()}" update="table"
+                        onchange="TargetDot.create()"/>
             </h:commandButton>
             <p:commandButton id="clearBtn" styleClass="clearBtn" value="очистить">
                 <p:ajax listener="#{pointController.clear()}" update="result-table"/>
             </p:commandButton>
             <h:button styleClass="returnBtn" value="назад" outcome="toHelloPage"/>
-            <div>
-                <h:dataTable id="result-table" styleClass="resultTable" scrollHeight="500"
-                             value="#{pointController.hits}" var="point">
-                    <h:column>
-                        <f:facet name="header">x</f:facet>
-                        <h:outputText styleClass="x-table-value" value="#{point.x}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">y</f:facet>
-                        <h:outputText styleClass="y-table-value" value="#{point.y}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">r</f:facet>
-                        <h:outputText styleClass="r-table-value" value="#{point.r}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">result</f:facet>
-                        <h:outputText styleClass="result-table-value" value="#{(point.result? 'Да' : 'Нет')} "/>
-                    </h:column>
-                </h:dataTable>
-            </div>
 
+            <div class="table">
+                <ui:include src="table.xhtml"/>
+            </div>
         </h:form>
 
 
     </h:panelGrid>
-    <h:outputScript library="scripts" name="plotListener.js"/>
     <h:outputScript library="scripts" name="TargetDot.js"/>
+    <h:outputScript library="scripts" name="plotListener.js"/>
 
 
 </h:body>

@@ -1,5 +1,4 @@
 
-
     let xError = document.getElementsByClassName("xError");
     let yError = document.getElementById("yError");
     let rError = document.getElementById("rError")
