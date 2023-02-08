@@ -3,8 +3,15 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
 
-    <h:outputScript name="scripts/TargetDot.js"/>
-    <h:outputScript name="scripts/plotListener.js"/>
+
+    <h:head>
+        <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
+        <h:outputStylesheet name="/styles/style.css"/>
+        <h:outputStylesheet name="/styles/input.scss"/>
+        <h:outputStylesheet name="/styles/button.css"/>
+        <h:outputScript library="scripts" name="plotListener.js"/>
+        <h:outputScript library="scripts" name="TargetDot.js"/>
+    </h:head>
 
     <div class="plot-container">
         <svg height="600" width="600" id="plot" xmlns="http://www.w3.org/2000/svg" onclick="newPoint()">
@@ -58,7 +65,7 @@
 
         <h:commandButton styleClass="button navigation-button" id="plot-check">
             <p:ajax process="@form" listener="#{pointController.insertPoint()}"
-                    update="table" onchange="TargetDot.create()"/>
+                     oncomplete="TargetDot.create()"/>
         </h:commandButton>
     </h:form>
 </ui:composition>

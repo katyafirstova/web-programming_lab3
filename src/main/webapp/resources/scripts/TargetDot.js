@@ -11,7 +11,7 @@ class TargetDot {
         this.x = document.getElementById('plot-form:plot-valueX').value;
         this.y =  document.getElementById('plot-form:plot-valueY').value;
         this.r =  document.getElementById('plot-form:plot-valueR').value
-        this.result =   document.getElementById('plot-form:plot-check').value;
+        this.result = document.getElementById('plot-form:plot-check').value;
         this.calculateColor()
         this.calculateCoordinates()
     }

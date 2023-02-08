@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <h:head>
+      <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
+      <h:outputStylesheet name="/styles/style.css"/>
+      <h:outputStylesheet name="/styles/input.scss"/>
+      <h:outputStylesheet name="/styles/button.css"/>
+      <h:outputScript library="scripts" name="plotListener.js"/>
+      <h:outputScript library="scripts" name="TargetDot.js"/>
+   </h:head>
+   <h:panelGrid>
+         <h:dataTable id="table" styleClass="table" scrollHeight="500"
+                      value="#{pointController.hits}" var="point">
+            <h:column>
+               <f:facet name="header">x</f:facet>
+               <h:outputText styleClass="x-table-value" value="#{point.x}"/>
+            </h:column>
+            <h:column>
+               <f:facet name="header">y</f:facet>
+               <h:outputText styleClass="y-table-value" value="#{point.y}"/>
+            </h:column>
+            <h:column>
+               <f:facet name="header">r</f:facet>
+               <h:outputText styleClass="r-table-value" value="#{point.r}"/>
+            </h:column>
+            <h:column>
+               <f:facet name="header">result</f:facet>
+               <h:outputText styleClass="result-table-value" value="#{(point.result? 'Да' : 'Нет')} "/>
+            </h:column>
+         </h:dataTable>
+   </h:panelGrid>
+</ui:composition>
+
+

@@ -1,7 +1,7 @@
 function newPoint() {
 
     const rect = document.getElementById("plot").getBoundingClientRect();
-    const valueR =$('.inputR').val();
+    const valueR = $('.inputR').val();
     const centerX = rect.left + 300
     const centerY = rect.top + 300
 
@@ -16,7 +16,7 @@ function newPoint() {
         document.getElementById('plot-form:plot-valueY').value = String(calcY);
         document.getElementById('plot-form:plot-valueR').value = String(valueR);
         document.getElementById('plot-form:plot-check').click()
-    }else {
+    } else {
         alert('Выбранные значения не входят в ОДЗ')
     }
 }
