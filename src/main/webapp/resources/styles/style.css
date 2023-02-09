@@ -12,7 +12,11 @@ body, html {
 h3 {
     margin-left: 50px;
 }
-.table-value {}
+.table-value, .result-table-value, .x-table-value,
+.y-table-value,
+.r-table-value {}
+
+
 
 .wrapper {
     display: flex;
