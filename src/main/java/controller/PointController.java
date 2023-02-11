@@ -2,8 +2,8 @@ package controller;
 
 
 import dao.PointDAO;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 import model.Coordinates;
 import model.Table;
 import utils.HitChecker;

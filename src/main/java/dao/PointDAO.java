@@ -11,7 +11,8 @@ import utils.ConnectionUtils;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
+
 
 @ManagedBean(name="dao")
 @ApplicationScoped
