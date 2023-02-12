@@ -4,10 +4,7 @@ import lombok.*;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @EqualsAndHashCode
 @Getter
@@ -16,19 +13,17 @@ import java.time.format.DateTimeFormatter;
 @ManagedBean(name = "table")
 @SessionScoped
 @AllArgsConstructor
-public class Table implements Serializable {
-
+public class Table {
     private int x;
     private double y;
-    private double r;
+    private int r;
     private boolean result;
 
-  //  private String executionTime;
     public Table() {
     }
+
     public boolean getResult() {
         return result;
     }
-
 }
 

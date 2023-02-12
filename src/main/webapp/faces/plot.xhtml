@@ -64,8 +64,8 @@
         <h:inputHidden id="plot-valueR" value="#{pointController.coordinates.r}"/>
 
         <h:commandButton styleClass="button navigation-button" id="plot-check">
-            <p:ajax process="@form" listener="#{pointController.insertPoint()}"
-                     oncomplete="TargetDot.create()"/>
+            <p:ajax process="@form" action="#{pointController.insertPoint()}"
+                    oncomplete="TargetDot.create()"/>
         </h:commandButton>
     </h:form>
 </ui:composition>

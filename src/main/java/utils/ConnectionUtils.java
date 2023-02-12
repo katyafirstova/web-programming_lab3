@@ -13,7 +13,8 @@ public final class ConnectionUtils {
         loadProperties();
     }
 
-    private ConnectionUtils() { }
+    private ConnectionUtils() {
+    }
 
     private static void loadProperties() {
         try (InputStream inputStream = ConnectionUtils.class
@@ -24,6 +25,7 @@ public final class ConnectionUtils {
         }
 
     }
+
     public static String get(String key) {
         return PROPERTIES.getProperty(key);
     }

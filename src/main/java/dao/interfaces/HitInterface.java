@@ -3,14 +3,15 @@ package dao.interfaces;
 import model.Table;
 
 import java.sql.SQLException;
-import java.util.Deque;
+import java.util.List;
+
 
 
 public interface HitInterface {
-    Table insert(Table hit) throws SQLException, ClassNotFoundException;
+    void insert(Table hit) throws SQLException;
 
-    Deque<Table> getHits() throws SQLException, ClassNotFoundException;
+    List<Table> getHits() throws SQLException;
 
-    void clear() throws SQLException, ClassNotFoundException;
+    void clear();
 
 }

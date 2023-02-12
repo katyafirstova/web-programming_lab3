@@ -5,11 +5,13 @@ import dao.PointDAO;
 
 import lombok.*;
 import model.Coordinates;
-import model.Table;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.HitChecker;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+
 import java.io.Serializable;
 import java.sql.SQLException;
 
@@ -19,7 +21,9 @@ import java.util.*;
 @ApplicationScoped
 public class PointController implements Serializable {
 
-    final private PointDAO pointDAO = new PointDAO();
+    private static final Logger logger = LoggerFactory.getLogger(PointController.class);
+
+    final private PointDAO pointDAO = PointDAO.getInstance();
     private final HitChecker hitChecker = new HitChecker();
     @Setter
     @Getter
@@ -30,33 +34,19 @@ public class PointController implements Serializable {
     private Coordinates coordinates = new Coordinates();
 
     public void insertPoint() throws SQLException, ClassNotFoundException {
-        if (Objects.isNull(pointDAO.getDBConnection()))
-            return;
-
-        Table result = new Table(
-                coordinates.getX(),
-                coordinates.getY(),
-                coordinates.getR(),
-                hitChecker.checkIfHit(coordinates));
-
-        pointDAO.insert(result);
-
+        coordinates.setResult(hitChecker.checkIfHit(coordinates));
+        pointDAO.insert(coordinates);
+        logger.info("PointController.insert coordinates: {}", coordinates);
     }
 
-    public Object[] getHits() throws SQLException, ClassNotFoundException {
-        if (Objects.isNull(pointDAO.getDBConnection()))
-            return new LinkedList[]{new LinkedList<>()};
-
-        return pointDAO.getHits().toArray();
-
+    public List<Coordinates> getList() {
+        logger.info("PointController.getList");
+        return pointDAO.getList();
     }
 
-    public void clear() throws SQLException, ClassNotFoundException {
-        if (Objects.isNull(pointDAO.getDBConnection()))
-            return;
-
+    public void clear() {
+        logger.info("PointController.clear");
         pointDAO.clear();
-
     }
 
 }

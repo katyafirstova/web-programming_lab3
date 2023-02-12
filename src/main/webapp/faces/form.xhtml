@@ -3,7 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-          xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
         <h:outputStylesheet name="/styles/style.css"/>
@@ -65,9 +65,9 @@
         <br/><br/><br/>
 
         <h:commandButton styleClass="submitBtn" type="submit" id="checkBtn"
-                         value="проверить" >
+                         value="проверить">
             <p:ajax process="@form" listener="#{pointController.insertPoint()}" update="table"/>
-            <f:ajax   oncomplete="TargetDot.create()"/>
+            <f:ajax oncomplete="TargetDot.create()"/>
         </h:commandButton>
 
         <h:commandButton id="clearBtn" styleClass="clearBtn" value="очистить">
