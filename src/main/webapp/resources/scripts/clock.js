@@ -1,22 +1,14 @@
-function setTimeOffset() {
-    let offset = calculateTimeOffset(new Date().getTimezoneOffset() * -1);
-    $("#timeForm\\:timeOffset").val(offset);
+
+function showDateTime() {
+    let date = new Date();
+    let dateElement = String(date).split(" ").slice(0, 5);
+    if(dateElement[5] < 100)
+        dateElement[5] = "0" + dateElement[5];
+
+    document.querySelector("#clock").innerText = dateElement.join(" ");
 }
+document.addEventListener('DOMContentLoaded', () => {
+    showDateTime();
+});
 
-function calculateTimeOffset(time) {
-    let hours = Math.abs(Math.floor(time / 60));
-    let minutes = Math.abs(time % 60);
-
-    if (hours < 10) {
-        hours = '0' + hours;
-    }
-
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-
-    let sign = time < 0 ? '-' : '+';
-
-    time = sign + hours + minutes;
-    return time;
-}
+setInterval(showDateTime, 5000);

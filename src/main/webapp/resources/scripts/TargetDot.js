@@ -22,7 +22,6 @@ class TargetDot {
     static calculateCoordinates() {
         const calcX = 300 + this.x * 200 / this.r
         const calcY = 300 - this.y * 200 / this.r
-
         let target = document.getElementById('target-dot');
         target.setAttribute('r', 10)
         target.setAttribute('cx', String(calcX))
