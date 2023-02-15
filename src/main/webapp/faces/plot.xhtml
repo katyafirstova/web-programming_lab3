@@ -1,17 +1,18 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
     <h:head>
-        <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
         <h:outputStylesheet name="/styles/style.css"/>
         <h:outputStylesheet name="/styles/input.scss"/>
         <h:outputStylesheet name="/styles/button.css"/>
-        <h:outputScript library="scripts" name="plotListener.js"/>
-        <h:outputScript library="scripts" name="TargetDot.js"/>
     </h:head>
+
+    <h:body>
+    <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
+    <h:outputScript library="scripts" name="TargetDot.js"/>
+    <h:outputScript library="scripts" name="plotListener.js"/>
+
 
     <div class="plot-container">
         <svg height="600" width="600" id="plot" xmlns="http://www.w3.org/2000/svg" onclick="newPoint()">
@@ -64,8 +65,9 @@
         <h:inputHidden id="plot-valueR" value="#{pointController.coordinates.r}"/>
 
         <h:commandButton styleClass="button navigation-button" id="plot-check">
-            <p:ajax process="@form" action="#{pointController.insertPoint()}"
+            <f:ajax process="@form" action="#{pointController.insertPoint()}"
                     oncomplete="TargetDot.create()"/>
         </h:commandButton>
     </h:form>
-</ui:composition>
+</h:body>
+</html>

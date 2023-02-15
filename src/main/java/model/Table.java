@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Table {
     private int x;
     private double y;
-    private int r;
+    private double r;
     private boolean result;
 
     public Table() {

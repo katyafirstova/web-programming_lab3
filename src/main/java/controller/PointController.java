@@ -51,4 +51,3 @@ public class PointController implements Serializable {
 
 }
 
-
