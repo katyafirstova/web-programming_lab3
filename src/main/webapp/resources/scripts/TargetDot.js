@@ -10,8 +10,8 @@ class TargetDot {
     static create() {
 
         this.x = document.getElementById('plot-form:plot-valueX').value;
-        this.y =  document.getElementById('plot-form:plot-valueY').value;
-        this.r =  document.getElementById('plot-form:plot-valueR').value;
+        this.y = document.getElementById('plot-form:plot-valueY').value;
+        this.r = document.getElementById('plot-form:plot-valueR').value;
         this.result = document.getElementById('plot-form:plot-check').click();
 
         this.calculateColor()

@@ -1,18 +1,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-    <h:head>
-        <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
-        <h:outputStylesheet name="/styles/style.css"/>
-        <h:outputStylesheet name="/styles/input.scss"/>
-        <h:outputStylesheet name="/styles/button.css"/>
-        <h:outputScript library="scripts" name="plotListener.js"/>
-        <h:outputScript library="scripts" name="TargetDot.js"/>
-    </h:head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
+    <h:outputStylesheet name="/styles/style.css"/>
+    <h:outputStylesheet name="/styles/input.scss"/>
+    <h:outputStylesheet name="/styles/button.css"/>
+    <h:outputScript library="scripts" name="plotListener.js"/>
+    <h:outputScript library="scripts" name="TargetDot.js"/>
+</h:head>
 
-    <h:body>
+<h:body>
     <h:form id="form">
 
         <h:outputLabel for="x-coordinate" data-required="Выберите X">x:</h:outputLabel>
@@ -65,8 +65,9 @@
         <br/><br/><br/>
 
         <h:commandButton styleClass="submitBtn" type="submit" id="checkBtn"
-                         value="проверить" actionListener="#{pointController.insertPoint()}">
-            <p:ajax process="@form" oncomplete="TargetDot.create()"/>
+                         value="проверить">
+            <p:ajax process="@form" listener="#{pointController.insertPoint()}"
+                    update="table" oncomplete="TargetDot.create()"/>
         </h:commandButton>
 
         <h:commandButton id="clearBtn" styleClass="clearBtn" value="очистить"
@@ -76,5 +77,5 @@
         <h:button styleClass="returnBtn" value="назад" outcome="toHelloPage"/>
 
     </h:form>
-    </h:body>
+</h:body>
 </html>
