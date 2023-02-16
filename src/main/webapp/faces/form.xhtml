@@ -66,11 +66,11 @@
 
         <h:commandButton styleClass="submitBtn" type="submit" id="checkBtn"
                          value="проверить" actionListener="#{pointController.insertPoint()}">
-        <p:ajax process="@form" listener="#{pointController.insertPoint()}" update="table"/>
+            <p:ajax process="@form" oncomplete="TargetDot.create()"/>
         </h:commandButton>
 
-        <h:commandButton id="clearBtn" styleClass="clearBtn" value="очистить">
-            <p:ajax listener="#{pointController.clear()}" update="table"/>
+        <h:commandButton id="clearBtn" styleClass="clearBtn" value="очистить"
+                         actionListener="#{pointController.clear()}">
         </h:commandButton>
 
         <h:button styleClass="returnBtn" value="назад" outcome="toHelloPage"/>
