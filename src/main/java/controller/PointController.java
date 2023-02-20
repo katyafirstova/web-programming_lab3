@@ -9,21 +9,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.HitChecker;
 
-import javax.faces.bean.ApplicationScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 
 import java.util.*;
 
 @ManagedBean(name = "pointController")
-@ApplicationScoped
+@SessionScoped
 public class PointController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(PointController.class);
 
-    final private PointDAO pointDAO = PointDAO.getInstance();
+    private final PointDAO pointDAO = PointDAO.getInstance();
     private final HitChecker hitChecker = new HitChecker();
     @Setter
     @Getter
@@ -31,12 +32,33 @@ public class PointController implements Serializable {
 
     @Setter
     @Getter
-    private Coordinates coordinates = new Coordinates();
+    private Coordinates coordinates;
 
-    public void insertPoint() throws SQLException, ClassNotFoundException {
+
+    public PointController() {
+        this.coordinates = new Coordinates();
+        this.coordinates.setR(1.);
+    }
+
+    public void insertPoint() {
         coordinates.setResult(hitChecker.checkIfHit(coordinates));
         pointDAO.insert(coordinates);
         logger.info("PointController.insert coordinates: {}", coordinates);
+    }
+
+    public void insertClick() {
+        try {
+            Map<String, String> paramMap = FacesContext.getCurrentInstance().
+                    getExternalContext().getRequestParameterMap();
+            coordinates.setX(Double.parseDouble(paramMap.get("dot-form:valueX")));
+            coordinates.setY(Double.parseDouble(paramMap.get("dot-form:valueY")));
+            coordinates.setR(Double.parseDouble(paramMap.get("dot-form:valueR")));
+            coordinates.setResult(hitChecker.checkIfHit(coordinates));
+            pointDAO.insert(coordinates);
+            logger.info("PointController.insert click: {}", coordinates);
+        } catch (Exception e) {
+            logger.info("PointController.insert click ERROR {}", e.getLocalizedMessage());
+        }
     }
 
     public List<Coordinates> getList() {
@@ -45,9 +67,29 @@ public class PointController implements Serializable {
     }
 
     public void clear() {
-        logger.info("PointController.clear");
+        logger.info("PointController.clear()");
         pointDAO.clear();
     }
+
+    public void validate()
+    {
+        double r = this.coordinates.getR();
+        double y = this.coordinates.getY();
+
+        String e = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("plot-valueY");
+
+        if(r < 1. || r > 5.) {
+            String msg = "Ожидается число от 1 до 5";
+            FacesContext.getCurrentInstance().addMessage("table:r-coordinate",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+        }
+        if(y < -3. || r > 5.) {
+            String msg = "Ожидается число от -3 до 5";
+            FacesContext.getCurrentInstance().addMessage("table:y-coordinate",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+        }
+    }
+
 
 }
 

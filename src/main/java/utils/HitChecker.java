@@ -16,16 +16,18 @@ public class HitChecker implements Serializable {
 
     }
 
-    private boolean checkTriangle(int xVal, double yVal, double rVal) {
-        return (xVal >= 0 && yVal <= 0 && (rVal * rVal) <= (xVal * xVal + yVal * yVal));
+    private boolean checkTriangle(double xVal, double yVal, double rVal) {
+        return (rVal > 0 && xVal >= 0 && xVal <= rVal / 2
+                && yVal <= 0 &&  yVal >= -rVal
+                && yVal >= -rVal + 2*xVal);
     }
 
-    private boolean checkCircle(int xVal, double yVal, double rVal) {
+    private boolean checkCircle(double xVal, double yVal, double rVal) {
         return (xVal >= 0 && yVal >= 0 && (xVal * xVal + yVal * yVal) <= rVal * rVal);
     }
 
-    private boolean checkRectangle(int xVal, double yVal, double rVal) {
-        return (xVal <= 0 && yVal >= 0 && rVal <= 0 && xVal <= rVal / 2);
+    private boolean checkRectangle(double xVal, double yVal, double rVal) {
+        return (xVal <= 0 && yVal >= 0 && rVal > 0 && xVal >= -rVal && yVal <= rVal / 2);
     }
 
 }

@@ -1,6 +1,6 @@
-drop table if exists result_table cascade;
+drop table if exists result_table;
 
-create table result_table(x int, y double precision, r double precision, result text);
+create table result_table(id bigserial primary key, x decimal, y decimal, r decimal, result text);
 
 
 select * from result_table;

@@ -8,15 +8,15 @@ class TargetDot {
     }
 
     static create() {
-
-        this.x = document.getElementById('plot-form:plot-valueX').value;
-        this.y = document.getElementById('plot-form:plot-valueY').value;
-        this.r = document.getElementById('plot-form:plot-valueR').value;
-        this.result = document.getElementById('plot-form:plot-check').click();
-
-        this.calculateColor()
-        this.calculateCoordinates()
-
+        document.getElementById('table').childNodes.forEach(row => {
+            let cell = row.childNodes
+            this.x = Number(cell[0].innerText)
+            this.y = Number(cell[1].innerText)
+            this.r = Number(cell[2].innerText)
+            this.result = cell[3].innerText
+            this.calculateColor()
+            this.calculateCoordinates()
+        });
     }
 
     static calculateCoordinates() {

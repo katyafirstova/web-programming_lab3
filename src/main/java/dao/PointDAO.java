@@ -49,8 +49,8 @@ public class PointDAO implements Serializable {
         PreparedStatement ps = null;
         try {
             connection = getDBConnection();
-            ps = connection.prepareStatement("INSERT INTO result_table values (?, ?, ?, ?)");
-            ps.setInt(1, coordinates.getX());
+            ps = connection.prepareStatement("INSERT INTO result_table(x,y,r,result) values (?, ?, ?, ?)");
+            ps.setDouble(1, coordinates.getX());
             ps.setDouble(2, coordinates.getY());
             ps.setDouble(3, coordinates.getR());
             ps.setBoolean(4, coordinates.isResult());
@@ -80,7 +80,7 @@ public class PointDAO implements Serializable {
         try {
             connection = getDBConnection();
             st = connection.createStatement();
-            rs = st.executeQuery("select * from result_table");
+            rs = st.executeQuery("select id, x, y, r, result from result_table order by id desc");
             while (rs.next()) {
                 coordinates.add(mapCoordinates(rs));
             }
@@ -107,7 +107,8 @@ public class PointDAO implements Serializable {
 
     private Coordinates mapCoordinates(ResultSet rs) throws SQLException {
         Coordinates c = new Coordinates();
-        c.setX(rs.getInt("x"));
+        c.setId(rs.getLong("id"));
+        c.setX(rs.getDouble("x"));
         c.setY(rs.getDouble("y"));
         c.setR(rs.getDouble("r"));
         c.setResult(rs.getBoolean("result"));
