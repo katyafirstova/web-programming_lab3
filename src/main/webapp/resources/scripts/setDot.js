@@ -1,4 +1,4 @@
-class TargetDot {
+class Dot {
     constructor(options) {
         this.x = options.x
         this.y = options.y
@@ -8,15 +8,12 @@ class TargetDot {
     }
 
     static create() {
-        document.getElementById('table').childNodes.forEach(row => {
-            let cell = row.childNodes
-            this.x = Number(cell[0].innerText)
-            this.y = Number(cell[1].innerText)
-            this.r = Number(cell[2].innerText)
-            this.result = cell[3].innerText
-            this.calculateColor()
-            this.calculateCoordinates()
-        });
+        this.x = document.getElementById('dot-form:valueX').value;
+        this.y = document.getElementById('dot-form:valueY').value;
+        this.r = document.getElementById('dot-form:valueR').value;
+        this.calculateResult()
+        this.calculateColor()
+        this.calculateCoordinates()
     }
 
     static calculateCoordinates() {
@@ -34,20 +31,11 @@ class TargetDot {
     }
 
     static calculateResult() {
-        let checkRectangle = this.x <= 0 && this.y >= 0 && this.x <= this.r / 2 && this.y >= -this.r
+        let checkRectangle = this.x <= 0 && this.y >= 0 && this.x <= this.r  && this.y <= this.r / 2
         let checkQuarterCircle = this.x >= 0 && this.y >= 0 && (this.x * this.x + this.y * this.y) <= this.r * this.r
-        let checkTriangle = this.x >= 0 && this.y <= 0 && (this.x * this.x + this.y * this.y) >= this.r * this.r;
-
+        let checkTriangle = this.r > 0 && this.x >= 0 && this.y <= 0 && this.x <= this.r / 2 && this.y >= -this.r && this.y >= -this.r + 2*this.x;
         this.result = (checkRectangle || checkQuarterCircle || checkTriangle).toString()
     }
 
-    static update() {
-        if (this.result) {
-            this.r = Number(document.getElementById('form:r-coordinate').value)
-            this.calculateResult()
-            this.calculateColor()
-            this.calculateCoordinates()
-        }
-    }
-}
 
+}
