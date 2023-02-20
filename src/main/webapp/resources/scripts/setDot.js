@@ -16,6 +16,16 @@ class Dot {
         this.calculateCoordinates()
     }
 
+    static update() {
+        this.x = $('[id^=form\\:x-coordinate]:checked').val()
+        this.y = document.getElementById('form:y-coordinate').value;
+        this.r = document.getElementById('form:r-coordinate').value;
+        alert('x = ' + this.x + ', y = ' + this.y + ', r = ' + this.r)
+        this.calculateResult()
+        this.calculateColor()
+        this.calculateCoordinates()
+    }
+
     static calculateCoordinates() {
         const calcX = 300 + this.x * 200 / this.r
         const calcY = 300 - this.y * 200 / this.r

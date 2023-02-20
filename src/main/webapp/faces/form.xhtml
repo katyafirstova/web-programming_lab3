@@ -55,7 +55,9 @@
         <br/>
         <div>
             <p:commandButton id="checkBtn" value="проверить"
-                             action="#{pointController.insertPoint()}" update="table"/>
+                             action="#{pointController.insertPoint()}" update="table">
+                <p:ajax process="@(#form)" oncomplete="Dot.update()"/>
+            </p:commandButton>
             <p:commandButton id="clearBtn" value="очистить"
                              action="#{pointController.clear()}" update="table"/>
             <p:button id="backBtn" value="назад" outcome="toHelloPage"/>
