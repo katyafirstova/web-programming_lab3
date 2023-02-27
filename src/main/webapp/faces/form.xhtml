@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" >
 
 
 <h:head>
@@ -13,6 +13,7 @@
 </h:head>
 
 <h:body>
+
     <h:form id="form">
 
         <p:outputLabel for="x-coordinate" data-required="Выберите X">x:</p:outputLabel>
@@ -25,32 +26,40 @@
         <p:outputLabel for="y-coordinate">y:</p:outputLabel><br/>
         <br/>
         <div class="form-control">
-            <p:inputText id="y-coordinate" styleClass="inputY" required="true"
+            <p:inputText id="y-coordinate" styleClass="inputY"
                          value="#{pointController.coordinates.y}"
-                         validatorMessage="Ожидается число от -3 до 5">
-                <p:ajax event="keyup"
+                         placeholder="от -3 до 5">
+          <!--    <p:ajax event="keyup"
                         listener="#{pointController.validate()}"
-                        update="userYMsg"/>
+                        update="userYMsg"/> -->
                 <f:validateRequired/>
                 <f:validateDoubleRange minimum="-3" maximum="5"/>
             </p:inputText>
-            <p:message id="userYMsg" for="y-coordinate"/>
+         <!--   <p:message id="userYMsg" for="y-coordinate"/> -->
+            <small>Error message</small>
+            <span class="highlight"/>
+            <span class="bar"/>
+            <span class="yError" aria-live="polite"/>
+            <div class="yError" id="yError"> </div>
         </div>
 
         <br/><br/>
         <p:outputLabel for="r-coordinate">r:</p:outputLabel><br/>
         <br/>
         <div class="form-control">
-            <p:inputText id="r-coordinate" styleClass="inputR" required="true"
-                         value="#{pointController.coordinates.r}"
-                         validatorMessage="Ожидается число от 1 до 5" >
-                <p:ajax event="keyup"
+            <p:inputText id="r-coordinate" styleClass="inputR"
+                         value="#{pointController.coordinates.r}" placeholder="от 1 до 5">
+         <!--       <p:ajax event="keyup"
                         listener="#{pointController.validate()}"
-                        update="userRMsg"/>
+                /> -->
                 <f:validateRequired/>
                 <f:validateDoubleRange minimum="1" maximum="5"/>
             </p:inputText>
-            <p:message id="userRMsg" for="r-coordinate"/>
+          <!--  <p:message id="userRMsg" for="r-coordinate"/> -->
+            <small>Error message/></small>
+            <span class="rError" aria-live="polite"/>
+            <div class="rError" id="rError"> </div>
+
         </div>
         <br/>
         <div>
@@ -64,5 +73,7 @@
         </div>
 
     </h:form>
+    <h:outputScript name="/scripts/jquery-3.6.3.min.js"/>
+    <h:outputScript library="scripts" name="validator.js"/>
 </h:body>
 </html>

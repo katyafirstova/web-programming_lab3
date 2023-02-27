@@ -20,7 +20,6 @@ class Dot {
         this.x = $('[id^=form\\:x-coordinate]:checked').val()
         this.y = document.getElementById('form:y-coordinate').value;
         this.r = document.getElementById('form:r-coordinate').value;
-        alert('x = ' + this.x + ', y = ' + this.y + ', r = ' + this.r)
         this.calculateResult()
         this.calculateColor()
         this.calculateCoordinates()
@@ -30,7 +29,7 @@ class Dot {
         const calcX = 300 + this.x * 200 / this.r
         const calcY = 300 - this.y * 200 / this.r
         let target = document.getElementById('target-dot');
-        target.setAttribute('r', 10)
+        target.setAttribute('r', 3)
         target.setAttribute('cx', String(calcX))
         target.setAttribute('cy', String(calcY))
         target.setAttribute('fill', this.color)
