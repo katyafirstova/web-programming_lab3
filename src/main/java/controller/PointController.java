@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import utils.HitChecker;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -18,8 +19,7 @@ import java.io.Serializable;
 
 import java.util.*;
 
-@ManagedBean(name = "pointController")
-@SessionScoped
+
 public class PointController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(PointController.class);

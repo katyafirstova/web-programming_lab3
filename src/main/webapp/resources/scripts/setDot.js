@@ -46,5 +46,4 @@ class Dot {
         this.result = (checkRectangle || checkQuarterCircle || checkTriangle).toString()
     }
 
-
 }

@@ -21,22 +21,22 @@
         <p:selectOneRadio styleClass="selectX" id="x-coordinate" value="#{pointController.coordinates.x}">
             <f:selectItems value="#{pointController.possibleX}"/>
         </p:selectOneRadio>
-
+s
         <br/><br/>
         <p:outputLabel for="y-coordinate">y:</p:outputLabel><br/>
         <br/>
         <div class="form-control">
             <p:inputText id="y-coordinate" styleClass="inputY"
                          value="#{pointController.coordinates.y}"
-                         placeholder="от -3 до 5">
-          <!--    <p:ajax event="keyup"
+                         placeholder="от -3 до 5" maxlength="6">
+              <p:ajax event="keyup"
                         listener="#{pointController.validate()}"
-                        update="userYMsg"/> -->
+                        update="userYMsg"/>
                 <f:validateRequired/>
                 <f:validateDoubleRange minimum="-3" maximum="5"/>
             </p:inputText>
-         <!--   <p:message id="userYMsg" for="y-coordinate"/> -->
-            <small>Error message</small>
+            <p:message id="userYMsg" for="y-coordinate"/>
+
             <span class="highlight"/>
             <span class="bar"/>
             <span class="yError" aria-live="polite"/>
@@ -48,14 +48,16 @@
         <br/>
         <div class="form-control">
             <p:inputText id="r-coordinate" styleClass="inputR"
-                         value="#{pointController.coordinates.r}" placeholder="от 1 до 5">
-         <!--       <p:ajax event="keyup"
+                         value="#{pointController.coordinates.r}" placeholder="от 1 до 5"
+                         maxlength="6">
+            <p:ajax event="keyup"
                         listener="#{pointController.validate()}"
-                /> -->
+                        update="userRMsg"
+                />
                 <f:validateRequired/>
                 <f:validateDoubleRange minimum="1" maximum="5"/>
             </p:inputText>
-          <!--  <p:message id="userRMsg" for="r-coordinate"/> -->
+           <p:message id="userRMsg" for="r-coordinate"/>
             <small>Error message/></small>
             <span class="rError" aria-live="polite"/>
             <div class="rError" id="rError"> </div>

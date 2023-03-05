@@ -5,10 +5,7 @@ import model.Coordinates;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
-
 import java.util.List;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.ConnectionUtils;
@@ -33,7 +30,6 @@ public class PointDAO implements Serializable {
         }
         return instance;
     }
-
 
     public Connection getDBConnection() throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
