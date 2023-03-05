@@ -10,9 +10,6 @@ import org.slf4j.LoggerFactory;
 import utils.HitChecker;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import java.io.Serializable;
@@ -20,8 +17,6 @@ import java.io.Serializable;
 import java.util.*;
 
 
-@ManagedBean(name = "pointController")
-@ApplicationScoped
 public class PointController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(PointController.class);
@@ -32,32 +27,30 @@ public class PointController implements Serializable {
     @Getter
     public final int[] possibleX = new int[]{-4, -3, -2, -1, 0, 1, 2, 3, 4};
 
-    @Setter
-    @Getter
-    private Coordinates coordinates;
-
-
-    public PointController() {
-        this.coordinates = new Coordinates();
-        this.coordinates.setR(1.);
-    }
 
     public void insertPoint() {
-        coordinates.setResult(hitChecker.checkIfHit(coordinates));
-        pointDAO.insert(coordinates);
-        logger.info("PointController.insert coordinates: {}", coordinates);
+        Map<String, String> paramMap = FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap();
+        Coordinates c = new Coordinates();
+        c.setX(Double.parseDouble(paramMap.get("form:x-coordinate")));
+        c.setY(Double.parseDouble(paramMap.get("form:y-coordinate")));
+        c.setR(Double.parseDouble(paramMap.get("form:r-coordinate")));
+        c.setResult(hitChecker.checkIfHit(c));
+        pointDAO.insert(c);
+        logger.info("PointController.insert coordinates: {}", c);
     }
 
     public void insertClick() {
         try {
+            Coordinates c = new Coordinates();
             Map<String, String> paramMap = FacesContext.getCurrentInstance().
                     getExternalContext().getRequestParameterMap();
-            coordinates.setX(Double.parseDouble(paramMap.get("dot-form:valueX")));
-            coordinates.setY(Double.parseDouble(paramMap.get("dot-form:valueY")));
-            coordinates.setR(Double.parseDouble(paramMap.get("dot-form:valueR")));
-            coordinates.setResult(hitChecker.checkIfHit(coordinates));
-            pointDAO.insert(coordinates);
-            logger.info("PointController.insert click: {}", coordinates);
+            c.setX(Double.parseDouble(paramMap.get("dot-form:valueX")));
+            c.setY(Double.parseDouble(paramMap.get("dot-form:valueY")));
+            c.setR(Double.parseDouble(paramMap.get("dot-form:valueR")));
+            c.setResult(hitChecker.checkIfHit(c));
+            pointDAO.insert(c);
+            logger.info("PointController.insert click: {}", c);
         } catch (Exception e) {
             logger.info("PointController.insert click ERROR {}", e.getLocalizedMessage());
         }
@@ -75,10 +68,12 @@ public class PointController implements Serializable {
 
     public void validate()
     {
-        double r = this.coordinates.getR();
-        double y = this.coordinates.getY();
 
-        String e = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("plot-valueY");
+        Map<String, String> paramMap = FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap();
+
+        double r = Double.parseDouble(paramMap.get("form:r-coordinate"));
+        double y = Double.parseDouble(paramMap.get("form:y-coordinate"));
 
         if(r < 1. || r > 5.) {
             String msg = "Ожидается число от 1 до 5";
@@ -94,4 +89,3 @@ public class PointController implements Serializable {
 
 
 }
-
