@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.util.*;
 
 
+@ManagedBean(name = "pointController")
+@ApplicationScoped
 public class PointController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(PointController.class);
